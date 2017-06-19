@@ -1,0 +1,177 @@
+/*
+Note: Come up with a linear solution, since that is what you would be asked to do in an interview.
+
+You have a sorted array of integers. Write a function that returns a sorted array containing the squares of those integers.
+
+Example
+
+For array = [-6, -4, 1, 2, 3, 5], the output should be
+sortedSquaredArray(array) = [1, 4, 9, 16, 25, 36].
+
+The array of squared integers from array is: [36, 16, 1, 4, 9, 25]. When sorted, it becomes: [1, 4, 9, 16, 25, 36].
+
+Input/Output
+
+[time limit] 3000ms (java)
+[input] array.integer array
+
+A sorted array of integers.
+
+Guaranteed constraints:
+1 ≤ array.length ≤ 104,
+-104 ≤ array[i] ≤ 104.
+
+[output] array.integer
+
+A sorted array of integers composed of the squared integers from the input array.
+
+*/
+
+
+
+
+
+
+// Solution 3
+int[] sortedSquaredArray(int[] array) {
+    
+    
+    // Please Vote for this solution, O(n) time
+
+    int i, j, r, ir, jr;
+    i = 0;
+    // get the length of the array for navigation purposes
+    j = r = (array.length - 1);
+    // declare a int result array
+    int[] result =  new int[(j+1)];
+    while (i <= j){
+        // square both ends, and compare which is largest
+        ir = array[i]*array[i];
+        jr = array[j]*array[j];
+        // insert the largest value at the tail
+        // or the result array, decrease the result array index
+        // increase or decrease the input array index
+        if (ir < jr){
+            result[r--] = jr;
+            j--;
+        } else {
+            result[r--] = ir;
+            i++;
+        }
+    }
+    //return the result array
+    return result;
+}
+
+
+// Solution 2
+int[] sortedSquaredArray(int[] array) {
+    
+    // Please VOTE my solution up
+    // Each step is evaluated and executed only if needed
+    // Each step grtees a O(n) execution
+     
+    
+    int len, i, s, si, j, x;
+    len = array.length;
+    si = i = j = 0;
+    int[] result = new int[len];
+    
+    /*** Here You squared each value in array ***/
+    /* simply go through the array and 
+     multiply each index value by itself
+     */
+    s = array[0]*array[0];
+    for (i = 0; i < len; i++){ 
+       array[i] *= array[i]; 
+       if (array[i] < s){
+           si = i;
+           s = array[i];
+       }
+    }
+    
+    /** If the smallest value is not at the beginning of array **/
+    if (si > 0) { 
+        // O(n)
+        /*** if the smallest value is at end of array ***/
+        if (si == len){
+        // if the smallest number is the largest index
+        // just invert the array and return
+            s = 0;
+            // invert the array
+            for (i = len-1; i == 0; i--){
+                result[s++] = array[i];
+            }
+            // return and finish
+            return result;    
+        }
+        
+
+        // O(n), 
+        // else, it means smallest index is in middle
+        // of array, then fill result in ascending order
+        i = (si-1); // set the left side index
+        j = (si+1);   // set the right side index
+        x = 0;
+        result[x] = array[si]; // store the smallest value
+        x = 1;
+        while ( i >= 0 && j < len){
+            // pic the smallest of the two values
+            // until you reach index 0 or index lenght len
+            if (array[i] < array[j]){
+                result[x++] = array[i--];     
+            } else {
+                result[x++] = array[j++]; 
+            }
+            
+        }
+        // since is likely than only one side completed,
+        // fill the array with the remainding values
+        if ( i < 0){
+            // this means the right side might still has values
+            while (j < len){
+                // keep adding right side (j)
+                result[x++] = array[j++];
+            }
+           
+        } else {
+            // this means keep adding left side ( i)
+            while (i >= 0){
+                result[x++] = array[i--];
+            }
+        }
+        
+        // return the  re-arranged array
+        return result; 
+    }
+    
+    
+    
+    // return the sorted array when the smallest value was at
+    // the beginning of the array
+    return array;
+    // Please VOTE my solution up
+
+}
+
+// Solution 1, not what is asked on problem
+// O(n^2)  this is not a linear solution
+int[] sortedSquaredArray(int[] array) {
+    
+    //This is a O(n^2) solution, not what they are looking for
+    
+    int len, i, s, si;
+    len = array.length;
+    si = 0;
+
+    s = array[0]*array[0];
+    for (i = 0; i < len; i++){ 
+       array[i] *= array[i]; 
+    }
+    Arrays.sort(array);
+    return array;
+
+
+}
+
+
