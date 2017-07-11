@@ -1,0 +1,35 @@
+char firstNotRepeatingCharacter(String s) {
+    int len = s.length();
+    int i, j; j = i = 0;
+    int[][] f = new int[26][2];
+    
+
+    for (i = 0; i < len; i++){
+
+        j = (int)s.charAt(i)-(int)'a';
+        f[j][0] += 1; // how many times it found the letter
+        if (f[j][1] == 0) {
+            // store the first index only once per letter
+            f[j][1] = i+1; // + 1 to avoid storing 0, deduct later
+        }
+    }
+    j = len + 1; // set a value larger than 27 as the smallest
+    // any index if found should be (len to 1)-1, thus smaller
+    for (i = 0; i < 26; i++){
+        if (f[i][0] == 1){
+            if (f[i][1] < j){
+                j = f[i][1];
+            }
+        }
+
+    }
+    if(j < (len + 1)) {
+        // if it found a non repeating char
+        // print the first index where found
+        return s.charAt(j-1);
+
+    }
+
+    return '_';
+
+}
