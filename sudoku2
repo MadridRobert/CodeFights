@@ -1,0 +1,64 @@
+boolean sudoku2(char[][] grid) {
+    // please vote for my simple to follow solution
+    // Robert 07/09/2017
+    
+    
+    int i, j, k, h, v;
+    i = j = k = h = v = 0;
+    // cehck horizontal for repeats
+    int[] sd = new int[10];
+    for (i = 0; i < 9; i++){
+        Arrays.fill(sd,0);
+        for(j = 0; j < 9; j++){
+            if(grid[i][j] != '.') {
+                // if number is repeated, return false
+                if((sd[(int)(grid[i][j])-'0'] += 1) > 1){
+                    return false;
+                }
+            }
+        }
+    }
+    
+    // Check vertical for repeats
+    int[] sd2 = new int[10];
+    for (i = 0; i < 9; i++){
+        
+        Arrays.fill(sd2,0);
+        for(j = 0; j < 9; j++){
+ 
+            if(grid[j][i] != '.') {
+                // if number is repeated, return false
+                if((sd2[(int)(grid[j][i])-'0'] += 1)> 1){
+                    return false;
+                }
+            }
+        }
+    }
+    
+    int[] b = new int[10];
+    // check 3x3 grids
+    i = j = 0;
+    while(i < 3 && j < 3){
+        Arrays.fill(b,0);// empty the array each block check
+        for (h = 0 + (3*i) ; h < (3 + (3*i)); h++){ 
+            for (v = 0 + (3 * j); v < 3 + (3 * j); v++){
+                if(grid[h][v] != '.') {
+                    // if number is repeated, return false
+                    if((b[(int)(grid[h][v])-'0'] += 1)> 1){
+                        return false;
+                    }
+                }   
+            }    
+        }
+        // check if you need to move to next column of blocks
+        if(h % 3 == 0) {
+            i++;
+        }
+        // check if you need to move to next row  of blocks
+        if (i == 3){
+            j++;
+            i = 0;
+        }
+    }
+    return true;
+}
