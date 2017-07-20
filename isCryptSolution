@@ -1,0 +1,46 @@
+boolean isCryptSolution(String[] crypt, char[][] solution) {
+    
+    
+    String str = crypt[0]+crypt[1]+crypt[2];
+    int[] iL = new int[26];
+    long[] r = new long[3];
+    int i, j; i = j = 0;
+    int len = solution.length;
+
+    // read the translation of letter to numbers and
+    // store the values in a int array of size 26
+    for (i = 0; i < len; i++){ 
+        iL[(int)solution[i][0]-(int)'A'] = ((int)solution[i][1]-(int)'0');
+    }
+    
+
+    // transform each word to a numerical long
+    StringBuilder sb;
+    for (i = 0; i < 3; i++){
+        sb = new StringBuilder();
+        for (j = 0; j < crypt[i].length(); j++ ){
+            sb.append(iL[(int)crypt[i].charAt(j)-(int)'A']);     
+        }
+        r[i] = Long.parseLong(sb.toString());
+    }
+    
+    // check if thirs word numerical value is longer than 1 character
+    // or if first character value is 0, if third word is > 1 char and both leading words start with 0
+    // or if third word is > 1 chars and either word is same as third
+    if((crypt[2].length()>1 && iL[(int)crypt[2].charAt(0)-(int)'A'] == 0) || 
+       (crypt[2].length()>1 && iL[(int)crypt[0].charAt(0)-(int)'A'] == 0 
+        && iL[(int)crypt[1].charAt(0)-(int)'A'] == 0     ) ||
+      (crypt[2].length()>1 && (r[1] == r[2] || r[0] == r[2]))){ 
+        return false;
+    }
+    
+    // return true if the sum of both words equals the third
+    if (r[0] + r[1] == r[2]){
+        return true;
+    }
+    
+
+   // default return of false in case it can not find a tru return
+    return false;
+
+}
