@@ -27,12 +27,17 @@ boolean isCryptSolution(String[] crypt, char[][] solution) {
     // check if thirs word numerical value is longer than 1 character
     // or if first character value is 0, if third word is > 1 char and both leading words start with 0
     // or if third word is > 1 chars and either word is same as third
-    if((crypt[2].length()>1 && iL[(int)crypt[2].charAt(0)-(int)'A'] == 0) || 
-       (crypt[2].length()>1 && iL[(int)crypt[0].charAt(0)-(int)'A'] == 0 
-        && iL[(int)crypt[1].charAt(0)-(int)'A'] == 0     ) ||
-      (crypt[2].length()>1 && (r[1] == r[2] || r[0] == r[2]))){ 
-        return false;
+    if(crypt[2].length()>1){
+        if(
+            (iL[(int)crypt[2].charAt(0)-(int)'A'] == 0) ||
+            (iL[(int)crypt[0].charAt(0)-(int)'A'] == 0 && iL[(int)crypt[1].charAt(0)-(int)'A'] == 0) ||
+            (r[1] == r[2] || r[0] == r[2])
+        ) { 
+            return false;
+        }
+        
     }
+
     
     // return true if the sum of both words equals the third
     if (r[0] + r[1] == r[2]){
@@ -44,3 +49,6 @@ boolean isCryptSolution(String[] crypt, char[][] solution) {
     return false;
 
 }
+
+
+
