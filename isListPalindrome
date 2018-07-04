@@ -1,0 +1,37 @@
+// Definition for singly-linked list:
+// class ListNode<T> {
+//   ListNode(T x) {
+//     value = x;
+//   }
+//   T value;
+//   ListNode<T> next;
+// }
+//
+boolean isListPalindrome(ListNode<Integer> l) {
+    if(l == null)
+        return true;
+ 
+    ListNode p = l;
+    ListNode prev = new ListNode(l.value);
+ 
+    while(p.next != null){
+        ListNode temp = new ListNode(p.next.value);
+        temp.next = prev;
+        prev = temp;
+        p = p.next;
+    }
+ 
+    ListNode p1 = l;
+    ListNode p2 = prev;
+ 
+    while(p1!=null){
+        if(((int)p1.value - (int)p2.value) != 0){ 
+            return false;
+        }
+        p1 = p1.next;
+        p2 = p2.next;
+    }
+ 
+    return true;
+}
+
