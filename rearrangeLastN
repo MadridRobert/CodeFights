@@ -1,0 +1,68 @@
+// Definition for singly-linked list:
+// class ListNode<T> {
+//   ListNode(T x) {
+//     value = x;
+//   }
+//   T value;
+//   ListNode<T> next;
+// }
+//
+ListNode<Integer> rearrangeLastN(ListNode<Integer> l, int n) {
+    if (n == 0 || l == null){
+        return l;
+    }
+    int i = 0;
+    ListNode<Integer> result = new ListNode<Integer>(0);
+    ListNode<Integer> result_head = result;
+    l = inverse(l);
+    while(l!=null && i < n){
+        result_head.next = new ListNode<Integer>(l.value);
+        result_head = result_head.next;
+        l = l.next;
+        i++;
+    }
+    /* if the number of elements is less than n, simply return
+    unmodified list
+    */
+    if (i < n){
+        return inverse(result);
+    } 
+    /* return the merger of the modified list 
+     * and the remaining elements on the list l
+     ** i starts at 0  
+    */
+    return merge(inverse(result.next),inverse(l));  
+
+
+}
+
+/* Flip a list, last = first, first = last */
+ListNode<Integer> inverse(ListNode<Integer> head){
+	    ListNode<Integer> prev = null;
+	    while(head!=null){
+	        ListNode<Integer> temp = head.next;
+	        head.next= prev;
+	        prev= head;
+	        head= temp;
+	    }
+	    return prev;  
+}
+
+/* This merge is a simple sequential union of both list 
+regardless of what order is list has */
+ListNode<Integer> merge(ListNode<Integer> a, ListNode<Integer> b){
+    ListNode<Integer> result = new ListNode<Integer>(0);
+    ListNode<Integer> result_head = result;      
+    while (a != null){
+        result_head.next = new ListNode<Integer>(a.value);
+        result_head = result_head.next;
+        a = a.next;
+    }
+    while (b != null){
+        result_head.next = new ListNode<Integer>(b.value);
+        result_head = result_head.next;
+        b = b.next;
+    }
+    return result.next;  
+}
+
