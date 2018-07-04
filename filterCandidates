@@ -1,0 +1,16 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE filterCandidates()
+BEGIN
+
+    SELECT A.user_id
+        ,A.username
+        ,A.country_code
+        ,A.visa_type
+        ,A.experience
+        ,A.date
+    FROM jobApplications A
+    WHERE A.country_code = 'US'
+        AND A.visa_type IN ('H1B','US citizen')
+        AND A.experience >= 2.0
+    ORDER BY A.date, A.user_id;
+END
