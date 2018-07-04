@@ -1,0 +1,84 @@
+' Definition for singly-linked list:
+' Public Class ListNode(Of T)
+'     Public value as T
+'     Public nxt as ListNode(of T)
+'     Public Sub New()
+'     End Sub
+'     Public Sub New(x as T)
+'         MyBase.New()
+'         value = x
+'         nxt = Nothing
+'     End Sub
+' End Class
+'
+Function addTwoHugeNumbers(a As ListNode(Of Integer), b As ListNode(Of Integer)) As ListNode(Of Integer)
+	
+	
+	
+	if (a Is Nothing) Then 
+		return b
+		else if (b Is Nothing) Then 
+		return a
+	End If
+	
+	Dim carryover As Integer = 0
+	
+	a = inverse(a)
+	b = inverse(b)
+	
+	Dim  result As new ListNode(of Integer) 
+	result.value = 0
+	
+	result.nxt = Nothing
+	
+	Dim  result_head  As new ListNode(Of Integer) = result
+	While (a IsNot Nothing Or b IsNot Nothing)
+		
+		If(a IsNot Nothing) Then
+		carryover += a.value
+		a = a.nxt
+	End If
+	
+	If(b IsNot Nothing) Then
+	carryover += b.value
+	b = b.nxt
+End If
+''
+result_head.nxt = New ListNode(Of Integer)
+result_head.nxt.value = (carryover Mod 10000)
+''Console.WriteLine(carryover Mod 10000)
+result_head = result_head.nxt
+''Console.WriteLine(carryover\10000)
+carryover \= 10000
+''
+End While
+
+if(carryover <> 0)  Then
+result_head.nxt= New ListNode(Of Integer)
+result_head.nxt.value = carryover
+End if
+
+''return inverse(a)
+return inverse(result.nxt)
+
+
+End Function
+
+Function inverse(head As ListNode(Of Integer)) As ListNode(Of Integer)
+Dim prev As ListNode(Of Integer) = Nothing
+While (head IsNot Nothing)
+Dim temp As ListNode(Of Integer) = head.nxt
+head.nxt = prev
+prev = head
+head = temp
+End While
+
+return prev
+End Function
+
+
+
+
+
+
+
