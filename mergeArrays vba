@@ -1,0 +1,40 @@
+Sub mergeArrays(sequence As List(Of Integer), l As Integer, m As Integer, r As Integer)
+  Dim i As Integer = l
+  Dim j As Integer = m
+  Dim result As New List(Of Integer)
+  While i < m And j < r
+    If sequence.item(i) < sequence.item(j) Then
+      result.Add(sequence.item(i))
+      i += 1
+    Else
+      result.Add(sequence.item(j))
+      j += 1
+    End If
+  End While
+
+  While i < m
+    result.Add(sequence.item(i))
+    i += 1
+  End While
+  While j < r
+    result.Add(sequence.item(j))
+    j += 1
+  End While
+  For i As Integer = l to (r - 1)
+    sequence(i) = result.item(i - l)
+  Next
+End Sub
+
+Sub split(sequence As List(Of Integer), l As Integer, r As Integer)
+if (l >= (r-1)) return sequence end if
+  Dim m As Integer = (l + r) \ 2
+  split(sequence, l, m)
+  split(sequence, m, r)
+  mergeArrays(sequence, l, m, r)
+End Sub
+
+Function mergeSort(sequence As List(Of Integer)) As List(Of Integer)
+  split(sequence, 0, sequence.Count)
+  Return sequence
+End Function
+
