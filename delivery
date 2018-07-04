@@ -1,0 +1,18 @@
+boolean[] delivery(int[] order, int[][] shoppers) {
+    
+    float r = 0;
+    int i = 0;
+    int l = shoppers.length;
+    boolean[] bol = new boolean[l];
+    for (i = 0; i < l; i++){
+        // first check if the idle time is greater than 0, then check if all time is within time
+        // that is expected and time that can be late, including upto full time
+        r = ((float)(shoppers[i][0] + order[0])/(shoppers[i][1]) + (float)shoppers[i][2]);
+        bol[i] = ((!((order[1] - r) > 0)) && (((order[1] + order[2]) - r) >= 0) ) ;
+        //System.out.print(bol[i]);
+
+    }
+    return bol;
+
+}
+
