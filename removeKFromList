@@ -1,0 +1,27 @@
+// Definition for singly-linked list:
+// class ListNode<T> {
+//   ListNode(T x) {
+//     value = x;
+//   }
+//   T value;
+//   ListNode<T> next;
+// }
+//
+ListNode<Integer> removeKFromList(ListNode<Integer> l, int k) {
+    if(l == null){
+        return l;
+    }
+
+    ListNode t = null;
+    t = l;
+    while (t.next != null){
+        if((int)t.next.value == k){
+            t.next = t.next.next;
+        } else {
+            t = t.next;
+        }
+    }
+    
+    return (int)l.value == k ? l.next : l;
+}
+
