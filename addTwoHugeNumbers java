@@ -1,0 +1,55 @@
+// Definition for singly-linked list:
+// class ListNode<T> {
+//   ListNode(T x) {
+//     value = x;
+//   }
+//   T value;
+//   ListNode<T> next;
+// }
+//
+ListNode<Integer> addTwoHugeNumbers(ListNode<Integer> a, ListNode<Integer> b) {
+    int i = 0;
+    
+    if (a == null){
+        return b;
+    } else if (b == null) {
+        return a;
+    }
+    
+    int carryover = 0;
+    a = inverse(a);
+    b = inverse(b);
+
+    ListNode<Integer> result = new ListNode<Integer>(0);
+    ListNode<Integer> result_head = result;
+    while(a!=null || b!=null){
+        if(a!=null){
+            carryover += a.value;
+            a = a.next;
+        }
+        if(b!=null){
+            carryover += b.value;
+            b = b.next;
+        }
+        result_head.next = new ListNode<Integer>(carryover%10000);
+        result_head = result_head.next;
+        carryover /= 10000;
+    }
+    if(carryover != 0) { 
+        result_head.next= new ListNode<Integer>(carryover);
+    }
+    
+    return inverse(result.next);
+}
+
+ListNode<Integer> inverse(ListNode<Integer> head){
+	    ListNode<Integer> prev = null;
+	    while(head!=null){
+	        ListNode<Integer> temp = head.next;
+	        head.next= prev;
+	        prev= head;
+	        head= temp;
+	    }
+	    return prev;  
+}
+
