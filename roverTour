@@ -1,0 +1,41 @@
+int roverTour(int[] terrainDifficulty, int energy) {
+    // robert valladares, july 8
+    int l = terrainDifficulty.length;
+    int i = 0;
+    int j = 0;
+    int sum = 0;
+    int c = 0;
+    int longest = 0;
+    // check if you have any energy
+    if (energy == 0){
+        return 0;
+    }
+    // start at index 0, and sum forward until you are equal or less than energy
+    for(i = 0; i < l; i++){
+        sum = 0;
+        c = 0;
+        // you are at starting point, now sum forward
+        for(j = i; j < l; j++){
+            if((sum + terrainDifficulty[j]) <= energy) {
+                // if adding the next index is within energy level, add index value
+                sum = sum +  terrainDifficulty[j];
+                // increase count of kilometers you can travel
+                c++;
+            } else {
+                // if the sum of index is greater, than exit inner loop
+                break;
+            }
+        
+        }
+        // longest starts at 0, if count is greater than 0, store that count
+        // count then becomes the largest value until a larger value occurs again
+        longest = c > longest ? c : longest;
+        
+    }
+    // return the largest value, a value could repeat itself multiple times
+    // but as long as no larger value occurs, the longest trip remains the same
+    // i.e. 4, 4, 4, 3, 4  then 4 is the largest
+    return longest;
+
+}
+
