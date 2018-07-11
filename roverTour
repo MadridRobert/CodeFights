@@ -11,7 +11,7 @@ int roverTour(int[] terrainDifficulty, int energy) {
         return 0;
     }
     // start at index 0, and sum forward until you are equal or less than energy
-    for(i = 0; i < l; i++){
+    for(i = 0; i < (l - longest); i++){
         sum = 0;
         c = 0;
         // you are at starting point, now sum forward
