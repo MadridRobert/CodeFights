@@ -1,0 +1,29 @@
+int hardSurname(String surname) {
+    char[] chars = surname.toCharArray();
+    int i = 0;
+    int c = 0;
+    int longest = 0;
+    for (i = 0; i <= (chars.length - longest); i++){
+        
+        switch (chars[i]) {
+            case 'a':
+            case 'e':
+            case 'i':
+            case 'o':
+            case 'u':
+            case 'A':
+            case 'E':
+            case 'I':
+            case 'O':
+            case 'U':
+                c = 0;
+                break;
+            default:
+                c++;
+        }
+        longest = c > longest ? c : longest;
+    }
+    return longest;
+
+}
+
