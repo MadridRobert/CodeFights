@@ -1,0 +1,17 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE freeSeats()
+BEGIN
+
+SELECT f.flight_id
+	,(p.number_of_seats - ifnull(a.sc, 0)) free_seats
+FROM flights f
+LEFT JOIN (
+	SELECT flight_id
+		,count(seat_no) sc
+	FROM purchases
+	GROUP BY flight_id
+	) a ON a.flight_id = f.flight_id
+LEFT JOIN planes p ON p.plane_id = f.plane_id
+ORDER BY 1 ASC;
+	
+END
