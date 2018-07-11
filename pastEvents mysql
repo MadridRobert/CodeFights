@@ -1,0 +1,11 @@
+/*Please add ; after each select statement*/
+CREATE PROCEDURE pastEvents()
+BEGIN
+    SELECT A.name, A.event_date
+    FROM Events A
+    WHERE A.event_date > SUBDATE((select MAX(b.event_date) from Events b),8)
+    ORDER BY 2 desc 
+    LIMIT 1,8;
+    
+	
+END
