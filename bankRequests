@@ -1,0 +1,65 @@
+int[] bankRequests(int[] accounts, String[] requests) {
+    //if (accounts.length == 0 || requests.length == 0){
+        //return accounts;
+    //}
+    
+    int i = 0;
+    int rl = requests.length;
+    int al = accounts.length;
+    int to = 0;
+    int from = 0;
+    int amount = 0;
+    int requestId = 0;
+    
+    for (i = 0; i < rl;  i++){
+        to = 0;
+        from = 0;
+        amount = 0;
+        // split the request into individual parts
+        String[] request = requests[i].split(" ");
+        switch (request[0]) {
+             case "transfer":
+                from = (Integer.parseInt(request[1])-1);
+                to = (Integer.parseInt(request[2])-1);
+                amount = Integer.parseInt(request[3]);
+
+                // first check for array index out of bounds then check is amount is greater than account balance
+                if (from < 0 || from >= al || to < 0 || to >= al || accounts[from] < amount){
+                    return new int[]{-(i + 1)};  
+                }
+                // adjust the balances
+                accounts[from] -= amount;
+                accounts[to] += amount;
+
+                break;
+
+             case "deposit":
+                to = (Integer.parseInt(request[1])-1);
+                amount = Integer.parseInt(request[2]);
+
+                // first check for array index out of bounds
+                if (to < 0 || to >= al){
+                    return new int[]{-(i + 1)};   
+                }
+                // adjust the balances
+                accounts[to] += amount;
+
+                break;
+             case "withdraw":
+                from = Integer.parseInt(request[1])-1;
+                amount = Integer.parseInt(request[2]);
+                // first check for array index out of bounds then check is amount is greater than account balance
+                if (from < 0 || from >= al || accounts[from] < amount){
+                    return new int[]{-(i + 1)};   
+                }
+                // adjust the balances
+                accounts[from] -= amount;
+                break;
+             default:
+                 continue;
+         }
+        
+    }
+    return accounts;
+
+}
