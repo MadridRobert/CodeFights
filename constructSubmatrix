@@ -1,0 +1,53 @@
+int[][] constructSubmatrix(int[][] matrix, int[] rowsToDelete, int[] columnsToDelete) {
+
+
+    int r = rowsToDelete.length;
+    int c = columnsToDelete.length;
+    int m = matrix.length;
+    int n = matrix[0].length;
+    int i = 0;
+    int j = 0;
+    int ri = 0;
+    int cj = 0;
+    int ti = 0;
+    int tj = 0;
+    
+    
+    if (r == 0 && c == 0 || r >= m || c >= n){
+        // return if there are no rows or columns to delete
+        // or if there are too many columns or too many rows to delete
+        return matrix;
+    }
+    // declare a new array of the expected size after deleting rows and columns
+    int[][] result = new int[(m - r)][n - c];
+    
+    // loop trhu original array
+    for (i = 0; i < m; i++){
+        // if the current row is the same as the one to delete, skip it
+        if(ri < r && i == rowsToDelete[ri]){
+            ri++;
+            continue;
+        }
+
+        for(j = 0; j < n; j++){
+            // if the current column is the same as the one to delete, skip it
+            if(cj < c && j == columnsToDelete[cj]){
+                cj++;
+                continue;
+            }
+            // store the values in the new array, only columns not deleted (skip)
+            // from rows not deleted (skip) are stored
+            result[ti][tj] = matrix[i][j];
+            tj++;    
+        }
+
+        ti++;
+        tj = 0;
+        cj = 0;
+    }
+    
+
+    
+    return result;
+}
+
