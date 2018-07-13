@@ -1,0 +1,21 @@
+boolean isLucky(int n) {
+    char[] nchar = String.valueOf(n).toCharArray();
+    int i = 0;
+    int l = nchar.length;
+    int fh = 0;
+    int sh = 0;
+    // loop thru integer converted to array of characters
+    for (i = 0; i < l;i++){
+        // if you are in the first half or array, add value to fh sum
+       if (i < l/2) {
+           fh += nchar[i] - '0';
+           
+       } else {
+           // else add the value to sh, second half sum
+           sh += nchar[i] - '0';
+       }
+    }
+    // return boolean comparison if both values are the same
+    return (fh == sh);
+
+}
