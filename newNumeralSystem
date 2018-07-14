@@ -1,0 +1,26 @@
+String[] newNumeralSystem(char number) {
+    String[] result = {"A + B"};
+    int i = 0;
+    ArrayList<String> list = new ArrayList<String>();
+
+    
+    do {
+        // execute loop at least once in the case of "A + A"
+        String a = (""+ (char)(i + 65) + " + " + (char)(number - i));
+        String b = (""+ (char)(number - i)+ " + " + (char)(i + 65));
+        // check if either combination of "A + Z", "Z + A" exist, where
+        // A and Z are just a sample of pair values
+        if(!(list.contains(a) || list.contains(b))){
+            // if combination does not exist, add to the list
+            list.add(a);
+        }
+        i++;
+    // loop until it reaches the difference between A and letter from number
+    // or until it reaches the same values i.e. " B + B"
+    }while(i < (number - 'A') || (((char)(i + 65) == (char)(number-i))) );
+
+    // transform the dynamic size list into an array and return the array of the 
+    // sets 
+    return list.toArray(new String[list.size()]);
+}
+
